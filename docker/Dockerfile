@@ -1,7 +1,7 @@
 FROM debian:testing
 COPY ./start.sh start.sh
 ENV instancename docker_book
-ENV booktypeversion 2.0
+ENV booktypeversion v2.3.0
 
 #env	DJANGO_SETTINGS_MODULE ${instancename}.settings
 ENV HTTP_HOST localhost
@@ -40,10 +40,10 @@ RUN virtualenv --distribute /docker_booktype
 RUN #!/bin/bash . /docker_booktype/bin/activate
 
 # Fetch Booktype source
-RUN wget https://github.com/sourcefabric/Booktype/archive/${booktypeversion}.zip
+RUN wget https://github.com/booktype/Booktype/archive/${booktypeversion}.zip
 RUN unzip /${booktypeversion}.zip
-RUN ln -s /Booktype-${booktypeversion} /Booktype
-RUN rm /${booktypeversion}.zip
+RUN ln -s /Booktype-${booktypeversion##v} /Booktype
+RUN rm /${vbooktypeversion}.zip
 
 # Install needed Python modules
 RUN pip install -r /Booktype/requirements/prod.txt
